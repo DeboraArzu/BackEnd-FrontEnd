@@ -1,0 +1,79 @@
+/* HeroesComponent's private CSS styles */
+h1{
+  text-align: center;
+}
+h2{
+  color: rgb(90, 41, 5);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    font-style: italic;
+    text-align: center;
+}
+
+.bg{
+  background-color: lightgoldenrodyellow;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.selected {
+    background-color: rgb(201, 214, 219) !important;
+    color: rgb(255, 255, 255);
+  }
+  .clothes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+  }
+  .clothes li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: rgb(241, 239, 78);
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .clothes li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+  .clothes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+  .clothes .text {
+    position: relative;
+    top: 1px;
+  }
+  .clothes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: hsl(17, 82%, 50%);
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
+  .comment{
+    color: red;
+    font-size: small;
+    margin: .5em;
+    padding: .3em 0;
+  }
+  .space{
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  #details{
+    margin: 5em;
+  }
