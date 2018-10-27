@@ -2,18 +2,18 @@ import React from 'react';
 import './Navbar.css';
 import '../SideDrawer/DrawerToggleButton';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+//import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const navbar = props => (
     <header className="navbar">
         <nav className="navbar-navigation">
             <div>
-                <DrawerToggleButton/>
+                <DrawerToggleButton click={props.drawerClickHandler} />
             </div>
             <div className="navbar-logo">
-                <a href="/">LOGO</a> 
+                <a href="/">LOGO</a>
             </div>
-            <div className="space"/>
+            <div className="space" />
             <div className="navbar-navigation-items">
                 <ul>
                     <li>
