@@ -2,7 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import '../SideDrawer/DrawerToggleButton';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const navbar = props => (
     <header className="navbar">
