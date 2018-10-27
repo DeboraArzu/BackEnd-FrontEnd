@@ -48,3 +48,9 @@
 .space{
     flex: 1;
 }
+
+@media (max-width: 2000px){
+    .navbar-navigation-items{
+        display: none;
+    }
+}
