@@ -6,11 +6,12 @@ import Products from './components/Products/Products';
 import About from './components/About/About';
 import Home from './components/Home/Home';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 ReactDOM.render(
     <BrowserRouter>
         <div>
+            <Redirect from="/" to="home" />
             <Route component={App} />
             <Route path={"/home"} component={Home} />
         </div>
