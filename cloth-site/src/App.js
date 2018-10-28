@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop';
+import './App.css'
 
 class App extends Component {
   state = {
@@ -15,7 +16,7 @@ class App extends Component {
   };
 
   backdropClickHandler = () => {
-    this.setState({sideDrawerOpen: false});
+    this.setState({ sideDrawerOpen: false });
   };
 
   render() {
@@ -27,10 +28,9 @@ class App extends Component {
     return (
       <div style={{ height: '100%' }}>
         <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer show = {this.state.sideDrawerOpen}/>;
+        <SideDrawer show={this.state.sideDrawerOpen} />;
         {backdrop}
         <main style={{ marginTop: '64px' }}>
-          <p>This is the page content</p>
         </main>
       </div>
     );
