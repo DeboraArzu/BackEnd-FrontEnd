@@ -40,10 +40,9 @@ class Products extends Component {
         this.refs.NewProductForm.reset();
     };
     Edit = () => {
-        alert("Editing");
     };
     DeleteMethod = () => {
-        alert("Deleting");
+        
     };
     render() {
         return (
@@ -67,15 +66,15 @@ class Products extends Component {
                             <td>156</td>
                             <td>s,m</td>
                             <td>all</td>
-                            <Button className="ButtonEdit" onClick={this.Edit}>Edit</Button>
-                            <Button className="ButtonDelete" onClick={this.DeleteMethod}>Delete</Button>
+                            <Button className="ButtonEdit" onClick={this.Edit()}>Edit</Button>
+                            <Button className="ButtonDelete" onClick={this.DeleteMethod()}>Delete</Button>
                         </tr>
                     </tbody>
                 </Table>
                 {
                     //show new product form
                     this.state.newForm?
-                        <form ref="NewProductForm">
+                        <form ref="NewProductForm" method="POST" action="/home/create">
                             <div className="NewComponent">
                                 <div className="form-group row">
                                     <label for="codigo-input" className="col-2 col-form-label">Codigo</label>
