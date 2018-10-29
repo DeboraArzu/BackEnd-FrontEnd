@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import './Products.css';
-import { throws } from 'assert';
+import ProductList from './ProductList'
 
 class Products extends Component {
     //estado de la forma para NewComponent
     state = {
         newForm: false,
-        products: []
     };
-    componentDidMount() {
-        fetch('/products')
-            .then(res => res.json())
-            .then(products => this.setState({ products }));
-    }
     //show new product form
     NewButtontoggler() {
         this.setState({
@@ -67,15 +61,7 @@ class Products extends Component {
                     </thead>
                     <tbody className="content">
                         <tr>
-                            <td>1</td>
-                            <td>156</td>
-                            <td>Pants</td>
-                            <td>156</td>
-                            <td>s,m</td>
-                            <td>all</td>
-                            <ul>
-                                {this.state.products.map(product => <li key={product.id}>{product.name} {product.cost} {product.color}</li>)}
-                            </ul>
+                            <ProductList/>
                             <Button className="ButtonEdit" onClick={this.Edit()}>Edit</Button>
                             <Button className="ButtonDelete" onClick={this.DeleteMethod()}>Delete</Button>
                         </tr>
