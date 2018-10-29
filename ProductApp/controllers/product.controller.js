@@ -1,8 +1,14 @@
 const Product = require('../models/product.model');
 
 //Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
+exports.getproducts = function (req, res) {
+    Product.find({}, function(err, products){
+        var productMap ={};
+        products.forEach(function(product){
+            productMap[product.id]=products;
+        });
+        res.send(productMap);
+    });
 };
 
 //HTTP POST
