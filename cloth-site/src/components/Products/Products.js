@@ -10,7 +10,7 @@ class Products extends Component {
         products: []
     };
     componentDidMount() {
-        fetch('/home/products')
+        fetch('/products')
             .then(res => res.json())
             .then(products => this.setState({ products }));
     }
@@ -74,7 +74,7 @@ class Products extends Component {
                             <td>s,m</td>
                             <td>all</td>
                             <ul>
-                                {this.state.products.map(product => <li key={product.codigo}>{product.name}</li>)}
+                                {this.state.products.map(product => <li key={product.id}>{product.name} {product.cost} {product.color}</li>)}
                             </ul>
                             <Button className="ButtonEdit" onClick={this.Edit()}>Edit</Button>
                             <Button className="ButtonDelete" onClick={this.DeleteMethod()}>Delete</Button>
