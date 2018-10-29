@@ -6,7 +6,8 @@ import './App.css'
 
 class App extends Component {
   state = {
-    sideDrawerOpen: false
+    sideDrawerOpen: false,
+    products:[]
   };
 
   drawerToggleClickHandler = () => {

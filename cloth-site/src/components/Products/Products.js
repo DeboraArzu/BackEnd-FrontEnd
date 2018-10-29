@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import './Products.css';
+import { throws } from 'assert';
 
 class Products extends Component {
     //estado de la forma para NewComponent
     state = {
-        newForm: false
+        newForm: false,
+        products: []
     };
-//show new product form
+    componentDidMount() {
+        fetch('/home/products')
+            .then(res => res.json())
+            .then(products => this.setState({ products }));
+    }
+    //show new product form
     NewButtontoggler() {
         this.setState({
             newForm: !this.setState.newForm
@@ -18,7 +25,7 @@ class Products extends Component {
         this.setState({
             newForm: false
         })
-        
+
     }
     Create = (event) => {
         event.preventDefault();
@@ -30,8 +37,8 @@ class Products extends Component {
 
         let info = {
             codigo: codigo,
-            name:name,
-            cost:cost,
+            name: name,
+            cost: cost,
             size: size,
             color: color
         };
@@ -42,7 +49,7 @@ class Products extends Component {
     Edit = () => {
     };
     DeleteMethod = () => {
-        
+
     };
     render() {
         return (
@@ -66,6 +73,9 @@ class Products extends Component {
                             <td>156</td>
                             <td>s,m</td>
                             <td>all</td>
+                            <ul>
+                                {this.state.products.map(product => <li key={product.codigo}>{product.name}</li>)}
+                            </ul>
                             <Button className="ButtonEdit" onClick={this.Edit()}>Edit</Button>
                             <Button className="ButtonDelete" onClick={this.DeleteMethod()}>Delete</Button>
                         </tr>
@@ -73,7 +83,7 @@ class Products extends Component {
                 </Table>
                 {
                     //show new product form
-                    this.state.newForm?
+                    this.state.newForm ?
                         <form ref="NewProductForm" method="POST" action="/home/create">
                             <div className="NewComponent">
                                 <div className="form-group row">
@@ -114,7 +124,7 @@ class Products extends Component {
                 }
                 <Button className="ButtonNew" onClick={() => this.NewButtontoggler()}>New</Button>
             </html>
-        );
+        )
     }
 }
 export default Products;

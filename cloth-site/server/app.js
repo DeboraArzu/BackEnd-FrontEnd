@@ -5,7 +5,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const product = require('./routes/product.route')
 const app = express()
-const router = express.Router()
 
 // Set up mongoose connection
 let dev_db_url = 'mongodb://admin:manager123@ds235243.mlab.com:35243/clothcollection';
