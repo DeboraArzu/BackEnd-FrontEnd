@@ -7,6 +7,8 @@ import About from './components/About/About';
 import Home from './components/Home/Home';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { store, history } from './redux/store';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
     <BrowserRouter>
@@ -17,6 +19,9 @@ ReactDOM.render(
         </div>
         <div className="products"><Route path={"/Products"} component={Products} /></div>
         <div className="about"><Route path={"/About"} component={About} /></div>
+        <Provider store={store}>
+            <App />
+        </Provider>
     </BrowserRouter>,
     document.getElementById('root'));
 
