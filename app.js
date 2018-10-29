@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const product = require('./ProductApp/routes/product.route'); // Imports routes for the products
 const app = express();
 
@@ -24,3 +24,4 @@ let port = 4000;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
+module.exports = app;
