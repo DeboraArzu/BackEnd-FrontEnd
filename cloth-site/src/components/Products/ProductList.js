@@ -5,21 +5,22 @@ class ProductList extends Component {
   constructor() {
     super();
     this.state = {
-      products: []
+      products: [],
     };
   }
 
   componentDidMount() {
     fetch('/home/products')
       .then(res => res.json())
-      .then(products => this.setState({ products }, () => console.log('products fetched...', products)));
+      .then(product => this.setState({ product }, () => console.log('products fetched...', product)));
   }
 
   render() {
     return (
       <div>
         <ul>
-          {/* {this.state.products.map((product, index) => <li key={product.codigo}>{product.name}</li>)} */}
+          {this.state.products.map(product => <li key={product.id}>{product.name}</li>
+          )}
         </ul>
       </div>
     );
