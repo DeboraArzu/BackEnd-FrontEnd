@@ -10,7 +10,7 @@ class ProductList extends Component {
   }
 
   componentDidMount() {
-    fetch('/home/products')
+    fetch('http://localhost:4000/home/products')
       .then(res => res.json())
       .then(product => this.setState({ product }, () => console.log('products fetched...', product)));
   }
