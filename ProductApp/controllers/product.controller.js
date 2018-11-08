@@ -2,10 +2,10 @@ const Product = require('../models/product.model');
 
 //Simple version, without validation or sanitation
 exports.getproducts = function (req, res) {
-    Product.find({}, function(err, products){
+    Product.find({},{name: "", size:"", color:"", cost:"", status:""}, function(err, products){
         var productMap ={};
         products.forEach(function(product){
-            productMap[product.id]=products;
+            productMap[product.codigo]=products;
         });
         res.send(productMap);
     });
@@ -15,11 +15,11 @@ exports.getproducts = function (req, res) {
 exports.product_create = function (req, res) {
     let product = new Product(
         {
-            codigo: req.body.codigo,
             name: req.body.name,
-            cost: req.body.cost,
             size: req.body.size,
             color: req.body.color,
+            cost: req.body.cost,
+            status: req.body.status
         }
     );
 //Save the information to the DB

@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 import './ProductList.css';
+import { Button } from 'react-bootstrap';
 
 class ProductList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      products: [],
+      products: []
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/home/products')
+    fetch('/home/products')
       .then(res => res.json())
-      .then(product => this.setState({ product }, () => console.log('products fetched...', product)));
+      .then(products => this.setState({ products }, () => console.log('products fetched...', products)));
   }
 
   render() {
-    return (
-      <div>
-        <ul>
-          {this.state.products.map(product => <li key={product.id}>{product.name}</li>
-          )}
-        </ul>
-      </div>
-    );
+    this.products = JSON.stringify(this.state.products)
+    console.log(this.products)
+    if (!(this.products === null) && this.products != '[]') {
+      return (
+        <div className="items-list">
+          <ul>
+            {this.state.products['undefined'].map(product => <li key={product.id}>{product.name} {product.size} {product.color} {product.cost} </li>
+            )}
+          </ul>
+          <Button className="ButtonEdit">Edit</Button>
+          <Button className="ButtonDelete">Delete</Button>
+        </div>
+      )
+    }
+    return ""
   }
 }
 
