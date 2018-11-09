@@ -14,7 +14,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/home', product);
 
 let port = 4000;
@@ -22,4 +22,5 @@ let port = 4000;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
+
 module.exports = app;
