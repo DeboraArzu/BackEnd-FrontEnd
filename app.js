@@ -4,11 +4,17 @@ const bodyParser = require('body-parser');
 const product = require('./ProductApp/routes/product.route'); // Imports routes for the products
 const app = express();
 //redis cache
-const path = require('path');
-const axios = require('axios');
 const redis = require('redis');
 const methodoverride = require('method-override');
 const exphbs = require('express-handlebars');
+var cache = require('express-redis-cache')({
+    port: 6379,
+    host: 'localhost',
+    authPass: null,
+    db: 0,
+    prefix: 'home',
+    enabled: true
+});
 // connect to Redis
 const REDIS_URL = process.env.REDIS_URL;
 const client = redis.createClient(REDIS_URL);
@@ -25,17 +31,15 @@ const db = mongoose.connection;
 let port = 4000;
 
 //view engine
-const portr = 4001;
-app.engine('handlebars', exphbs({defaultLayout:'main'}));
-app.set('view engine', 'handlebars')
-
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('cache', cache)
 //body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/home', product);
 
 //method override
-app.use(methodoverride('method')); 
+app.use(methodoverride('method'));
 
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
