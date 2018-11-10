@@ -12,8 +12,7 @@ exports.getproducts = function (req, res) {
         products.forEach(function (product) {
             productMap[product.codigo] = products;
         });
-        res.send(productMap);
-        res.status(200).send(res)
+        res.send(productMap); 
     });
 };
 
@@ -34,18 +33,15 @@ exports.product_create = function (req, res) {
             return next(err);
         }
         res.send('Product Created successfully')
-        res.status(201).send(res)
-        redis_insert(res.id, res.ops[0])
         console.log(res.id)
     })
 };
 
 //HTTP GET
 exports.product_details = function (req, res) {
-    Product.find({ codigo: req.params.id }, function (err, product) {
+    Product.find({ name: req.params.name }, function (err, product) {
         if (err) return next(err);
         res.send(product);
-        res.status(200).send(res)
     })
 };
 
@@ -54,18 +50,15 @@ exports.product_update = function (req, res) {
     Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, product) {
         if (err) return next(err);
         res.send('Product udpated.');
-        res.status(202).send(res)
     });
 };
 
 //DELETE
 exports.product_delete = function (req, res) {
-    redis_deleted(req.params.id)
+    redis_deleted(req.params.name)
     Product.findByIdAndRemove(req.params.id, function (err) {
         if (err) return next(err);
         res.send('Deleted successfully!');
-        res.status(200).send(res)
-
     })
 };
 
