@@ -7,6 +7,8 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const redis = require('redis');
+const methodoverride = require('method-override');
+const exphbs = require('express-handlebars');
 // connect to Redis
 const REDIS_URL = process.env.REDIS_URL;
 const client = redis.createClient(REDIS_URL);
@@ -18,17 +20,28 @@ const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+//puerto mongo
+let port = 4000;
+
+//view engine
+const portr = 4001;
+app.engine('handlebars', exphbs({defaultLayout:'main'}));
+app.set('view engine', 'handlebars')
+
+//body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/home', product);
 
-let port = 4000;
+//method override
+app.use(methodoverride('method')); 
 
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 client.on('connect', () => {
     console.log(`connected to redis`);
