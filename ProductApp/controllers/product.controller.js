@@ -7,7 +7,7 @@ const client = redis.createClient(REDIS_URL);
 
 //Simple version, without validation or sanitation
 exports.getproducts = function (req, res) {
-    Product.find({}, { name: "", size: "", color: "", cost: "", status: "" }, function (err, products) {
+    Product.find({}, { name: "", size: "", color: "", cost: "", status: "", codigobarra:"" }, function (err, products) {
         var productMap = {};
         products.forEach(function (product) {
             productMap[product.codigo] = products;
@@ -24,7 +24,8 @@ exports.product_create = function (req, res) {
             size: req.body.size,
             color: req.body.color,
             cost: req.body.cost,
-            status: req.body.status
+            status: req.body.status,
+            codigobarra: req.body.status
         }
     );
     //Save the information to the DB
@@ -33,8 +34,9 @@ exports.product_create = function (req, res) {
             return next(err);
         }
         res.send('Product Created successfully')
-        console.log(res.id)
+        insert(req.body.name, product)
     })
+    
 };
 
 //HTTP GET
@@ -47,7 +49,7 @@ exports.product_details = function (req, res) {
 
 //HTTP PUT
 exports.product_update = function (req, res) {
-    Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, product) {
+    Product.findByIdAndUpdate(req.params.codigobarra, { $set: req.body }, function (err, product) {
         if (err) return next(err);
         res.send('Product udpated.');
     });
@@ -55,19 +57,30 @@ exports.product_update = function (req, res) {
 
 //DELETE
 exports.product_delete = function (req, res) {
-    redis_deleted(req.params.name)
-    Product.findByIdAndRemove(req.params.id, function (err) {
+    redis_deleted(req.params.codigobarra)
+    Product.findByIdAndRemove(req.params.codigobarra, function (err) {
         if (err) return next(err);
         res.send('Deleted successfully!');
+        deletedata(req.params.codigobarra)
     })
 };
 
-function redis_insert(id, object) {
-    console.log("Inserted in redis")
-    client.set(id, JSON.stringify(object), redis.print)
+function insert(name, product) {
+    client.hmset(name, [
+        'name', product.name,
+        'size', product.size,
+        'color', product.color,
+        'cost', product.cost,
+        'status', product.status
+    ], function(err, reply){
+        if(err){
+            console.log(err)
+        }
+        console.log(reply)
+    })
 }
 
-function redis_deleted(id) {
-    console.log("Deleted from redis")
-    client.del(id)
-}
+function deletedata(codigobarra){
+    client.del(codigobarra);
+  }
+  

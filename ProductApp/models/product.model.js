@@ -6,7 +6,8 @@ let ClothSchema = new Schema({
     size: { type: String, required: true, max: 100 },
     color: { type: String, required: true, max: 100 },
     cost: { type: Number, required: true },
-    status: { type: Number, required: true, default:0}
+    status: { type: Number, required: true, default:0},
+    codigobarra: {type: Number, require: true}
 });
 
 
