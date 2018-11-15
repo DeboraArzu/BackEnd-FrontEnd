@@ -11,17 +11,15 @@ var cache = require('express-redis-cache')({
     port: 6379,
     host: 'localhost',
     authPass: null,
-    db: 0,
     prefix: 'home',
     enabled: true
 });
 // connect to Redis
-const REDIS_URL = process.env.REDIS_URL;
-const client = redis.createClient(REDIS_URL);
+const client = redis.createClient();
 
 // Set up mongoose connection
 const mongoose = require('mongoose');
-let dev_db_url = 'mongodb://localhost:27017';
+let dev_db_url = 'mongodb://admin:manager123@ds235243.mlab.com:35243/clothcollection'; 
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
