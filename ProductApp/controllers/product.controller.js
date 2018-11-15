@@ -43,19 +43,19 @@ exports.product_details = function (req, res) {
     var products = [];
     client.keys('*', function (err, keys) {
         if (err) return console.log(err);
-        if(keys){
-            async.map(keys, function(key, cb) {
-               client.get(key, function (error, value) {
+        if (keys) {
+            async.map(keys, function (key, cb) {
+                client.get(key, function (error, value) {
                     if (error) return cb(error);
                     var product = {};
-                    product['codigobarra']=key;
-                    product['data']=value;
+                    product['codigobarra'] = key;
+                    product['data'] = value;
                     cb(null, product);
-                }); 
+                });
             }, function (error, results) {
-               if (error) return console.log(error);
-               console.log(results);
-               res.json({data:results});
+                if (error) return console.log(error);
+                console.log(results);
+                res.json({ data: results });
             });
         }
     });
@@ -70,10 +70,10 @@ exports.product_details = function (req, res) {
 
 //HTTP PUT
 exports.product_update = function (req, res) {
-   Product.findOneAndUpdate(req.params.codigobarra, { $set: req.body }, function (err, product) {
+    Product.findOneAndUpdate(req.params.codigobarra, { $set: req.body }, function (err, product) {
         if (err) return next(err);
         res.send('Product udpated.');
-    }); 
+    });
 };
 
 //DELETE
@@ -86,13 +86,8 @@ exports.product_delete = function (req, res) {
 };
 
 function insert(codigo, product) {
-    client.hmset(codigo, [
-        'name', product.name,
-        'size', product.size,
-        'color', product.color,
-        'cost', product.cost,
-        'status', product.status,
-    ], function (err, reply) {
+    const value = JSON.stringify(product)
+    client.set(codigo, value, function (err, reply) {
         if (err) {
             console.log(err)
         }
@@ -104,23 +99,23 @@ function deletedata(codigobarra) {
     client.del(codigobarra);
 }
 
-function GetKeys(){
+function GetKeys() {
     var products = [];
     client.keys('*', function (err, keys) {
         if (err) return console.log(err);
-        if(keys){
-            async.map(keys, function(key, cb) {
-               client.get(key, function (error, value) {
+        if (keys) {
+            async.map(keys, function (key, cb) {
+                client.get(key, function (error, value) {
                     if (error) return cb(error);
                     var product = {};
-                    product['codigobarra']=key;
-                    product['data']=value;
+                    product['codigobarra'] = key;
+                    product['data'] = value;
                     cb(null, product);
-                }); 
+                });
             }, function (error, results) {
-               if (error) return console.log(error);
-               console.log(results);
-               res.json({data:results});
+                if (error) return console.log(error);
+                console.log(results);
+                res.json({ data: results });
             });
         }
     });
